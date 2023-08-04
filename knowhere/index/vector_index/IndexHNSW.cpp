@@ -18,6 +18,7 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <iostream>
 
 #include "common/Exception.h"
 #include "common/Log.h"
@@ -88,6 +89,8 @@ IndexHNSW::Train(const DatasetPtr& dataset_ptr, const Config& config) {
         } else {
             KNOWHERE_THROW_MSG("Metric type not supported: " + metric_type);
         }
+
+        std::cout << "Train HNSW index. #dim:" << dim <<std::endl;
         index_ = std::make_unique<hnswlib::HierarchicalNSW<float>>(space, rows, GetIndexParamHNSWM(config),
                                                                    GetIndexParamEfConstruction(config));
     } catch (std::exception& e) {
